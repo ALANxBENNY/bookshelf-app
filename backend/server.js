@@ -96,6 +96,16 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
+// Route to Get All Books
+app.get("/api/books", async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching books", error: error.message });
+  }
+});
+
 // Protect the Add Book Route
 app.post("/api/books", authMiddleware, async (req, res) => {
   try {
