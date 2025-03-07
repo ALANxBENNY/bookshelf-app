@@ -118,6 +118,13 @@ app.post("/api/books", authMiddleware, async (req, res) => {
   }
 });
 
+const cors = require('cors');
+
+// Allow requests from your frontend URL
+app.use(cors({
+  origin: 'https://67ca512c67df74ce375a6fd9--poetic-donut-81c957.netlify.app/'
+}));
+
 // Test Route
 app.get("/", (req, res) => {
   res.send("Welcome to the Bookshelf API!");
