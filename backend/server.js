@@ -1,8 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const cors = require("cors");
-const jwt = require("jsonwebtoken"); // Ensure this line appears only once
+const cors = require("cors"); // Import cors once
+const jwt = require("jsonwebtoken");
 const User = require("./models/User");
 const Book = require("./models/Book");
 
@@ -13,7 +13,9 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors()); // Enable CORS
+app.use(cors({
+  origin: 'https://67ca512c67df74ce375a6fd9--poetic-donut-81c957.netlify.app' // Allow requests from your frontend URL
+}));
 app.use(express.json()); // Parse JSON request bodies
 
 // MongoDB Connection
@@ -117,13 +119,6 @@ app.post("/api/books", authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Error adding book", error: error.message });
   }
 });
-
-const cors = require('cors');
-
-// Allow requests from your frontend URL
-app.use(cors({
-  origin: 'https://67ca512c67df74ce375a6fd9--poetic-donut-81c957.netlify.app/'
-}));
 
 // Test Route
 app.get("/", (req, res) => {
